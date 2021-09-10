@@ -1,0 +1,165 @@
+﻿
+@{
+    var userId = HttpContextAccessor.HttpContext.Session.GetString("userId");
+    var FullName = HttpContextAccessor.HttpContext.Session.GetString("FullName");
+    var role = HttpContextAccessor.HttpContext.Session.GetString("role");
+}
+
+@{
+    if (userId != null)
+    {
+
+        var menuSetupResults = Menus.GetMenuSetupById(userId);
+
+
+
+        if (menuSetupResults == null)
+        {
+
+        }
+        else
+        {
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav metismenu" id="side-menu">
+                        <li class="nav-header">
+                            <div class="dropdown profile-element">
+                                <span>
+                                    <img alt="image" class="img-circle" src="~/img/profile_small.jpg" />
+                                </span>
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear">
+                                        <span class="block m-t-xs">
+                                            <strong class="font-bold">@FullName</strong>
+                                        </span> <span class="text-muted text-xs block">@role<b class="caret"></b></span>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    
+                                    <li><a asp-page="/Authentication/Logout">Logout</a></li>
+                                </ul>
+                            </div>
+                            <div class="logo-element">
+                                IN+
+                            </div>
+                        </li>
+                        <li>
+                            <a asp-page="/Dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                        </li>
+                   
+                        @foreach (var menuNames in menuSetupResults.Where(n => n.ParentMenuId == "*" || n.ParentMenuId == null))
+                        {
+                            if (menuNames.ParentMenuId is null)
+                            {
+                                <li>
+                                    <a asp-page="@menuNames.MenuUrl"><i class="fa fa-diamond"></i> <span class="nav-label">@menuNames.MenuName</span></a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">@menuNames.MenuName</span><span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level collapse">
+                                        @foreach (var submenu in menuSetupResults.Where(n => n.ParentMenuId == menuNames.MenuId))
+                                        {
+                                            <li><a asp-page="@submenu.MenuUrl">@submenu.MenuName</a></li>
+                                        }
+
+
+                                    </ul>
+                                </li>
+                            }
+                        }
+
+
+
+                    </ul>
+
+                </div>
+            </nav>
+        }
+    }
+    else
+    {
+        <partial name="InventoryFiles/_RedirectToLoginScripts" />
+    }
+}
+
+
+
+
+
+
+@*<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="~/img/profile_small.jpg" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">David Williams</strong>
+                            </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="mailbox.html">Mailbox</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login.html">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+
+            <li>
+                <a asp-page="/Dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/Category"><i class="fa fa-diamond"></i> <span class="nav-label">Category</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/SubCategory"><i class="fa fa-diamond"></i> <span class="nav-label">Sub Category</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/Customer"><i class="fa fa-diamond"></i> <span class="nav-label">Client</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/Vendor"><i class="fa fa-diamond"></i> <span class="nav-label">Vendor</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/StoreSetup"><i class="fa fa-diamond"></i> <span class="nav-label">Store Setup</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/Vat"><i class="fa fa-diamond"></i> <span class="nav-label">Vat</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/Voucher"><i class="fa fa-diamond"></i> <span class="nav-label">Voucher</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/CustomerVoucher"><i class="fa fa-diamond"></i> <span class="nav-label">Customer Voucher</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/ProductVariationSetup"><i class="fa fa-diamond"></i> <span class="nav-label">Product Type Variation</span></a>
+            </li>
+            <li>
+                <a asp-page="/Setup/Branch"><i class="fa fa-diamond"></i> <span class="nav-label">Branch</span></a>
+            </li>
+
+            <li>
+                <a asp-page="/Administration/Users"><i class="fa fa-diamond"></i> <span class="nav-label">User</span></a>
+            </li>
+            <li>
+                <a asp-page="/Pos/Sales"><i class="fa fa-diamond"></i> <span class="nav-label">Sales</span></a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>*@

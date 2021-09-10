@@ -1,0 +1,4 @@
+﻿namespace HRIS.Domain.Common
+{
+
+}

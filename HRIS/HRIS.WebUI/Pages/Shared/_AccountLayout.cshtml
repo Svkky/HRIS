@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from webapplayers.com/inspinia_admin-v2.7.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Sep 2017 07:37:30 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/css/animate.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url('/appimages/InventoryBg.jpg');
+        }
+    </style>
+
+    <!-- Toastr style -->
+    <link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<body class="gray-bg" style="background-image:url('../appimages/InventoryBg.jpg'); background-size: cover; color:blueviolet">
+    <br /> <br /> <br /> <br /> <br />
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/appscripts/auth.js"></script>
+
+    @RenderBody()
+    <script src="~/js/plugins/toastr/toastr.min.js" asp-append-version="true"></script>
+
+
+</body>
+</html>

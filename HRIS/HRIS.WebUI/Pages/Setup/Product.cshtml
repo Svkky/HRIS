@@ -1,0 +1,170 @@
+﻿@page
+@model HRIS.WebUI.Pages.Setup.ProductModel
+@{
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Product Management</h5>
+            </div>
+
+
+            <div class="ibox-content">
+
+                @*<button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#productModal"><i class="fa fa-plus"></i>&nbsp;Add New</button>*@
+                <div id="ProductContainer"></div>
+
+                <div id="productEditModal" class="modal fade addnew" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header"> <h3 class="m-t-none m-b">Edit Product</h3></div>
+                            <div class="modal-body">
+                                <form role="form">
+                                    <input id="BranchProductId" type="hidden" />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Product Name <span style="color:red;"> *</span></label> <input id="ProductName" readonly class="form-control">
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Selling Price <span style="color:red;"> *</span></label>
+                                                <input placeholder="Enter The Selling Price" asp-for="SellPrice" type="text" class="form-control money">
+                                                <span id="SellPriceSpan" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    @*<div class="row">
+                                       
+
+                                    </div>*@
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Can Expire</label>
+                                                <select class="chosen-select form-control" id="CanExpire" asp-for="CanExpire">
+                                                    <option value="">Select value</option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="expire">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Manufactured Date <span style="color:red;"> *</span></label>
+                                                    <input type="date" asp-for="ManufactureDate" class="form-control">
+                                                    <span id="manufactureDateSpan" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Expired Date <span style="color:red;"> *</span></label>
+                                                    <input type="date" asp-for="ExpiryDate" class="form-control">
+                                                    <span id="expiryDateSpan" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Enable Discount on Product?</label>
+                                                <select class="chosen-select form-control" id="IsDiscount" asp-for="IsDiscount">
+                                                    <option value="">Select value</option>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div id="discountDiv">
+                                                <div class="form-group">
+                                                    <label>Discount (%)<span style="color:red;"> *</span></label>
+                                                    <input maxlength="3" type="number" placeholder="Discount" asp-for="Discount" class="form-control">
+                                                    <span id="discountSpan" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Product Has Variations?</label>
+                                                <select class="chosen-select form-control" asp-for="IsProductType">
+                                                    <option value="">Select value</option>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="ProductType">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Product Type Variation Name <span style="color:red;"> *</span></label>
+                                                    <select asp-for="VariantNameId" asp-items="@(new SelectList(Model.ProductTypeList,"productTypeVariationId","description"))" class="chosen-select form-control">
+                                                        <option value="">--Select Product type--</option>
+                                                    </select>
+                                                    <span id="productVarSpan" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Variation Quantity <span style="color:red;"> *</span></label>
+                                                    <input placeholder="Enter The Variation Quantity" asp-for="VariantQty" class="form-control">
+                                                    <span id="variantQtySpan" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Critical Level</label>
+                                                <input placeholder="Enter The Product Critical Level" asp-for="CriticalLevel" class="form-control">
+                                                <span id="CriticalLevelSpan" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Should Vat be added?</label>
+                                                <select class="chosen-select form-control" asp-for="IsVat" id="IsVat">
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12" id="vatDiv">
+                                            <div class="form-group">
+                                                <label>Vat value</label>
+                                                <input type="text" asp-for="Vat" id="Vat" placeholder="VAT" class="form-control" readonly />
+                                                <span id="VatSpan" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn_EditPrduct"><strong>Update</strong></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+@section Scripts {
+    <script src="~/appscripts/Product.js" asp-append-version="true"></script>
+}

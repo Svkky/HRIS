@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var siteLocation = HttpContextAccessor.HttpContext.Session.GetString("siteLocation");
+}
+<script>
+    var timer = setTimeout(function () {
+        window.location = '@siteLocation' + 'Authentication/Logout';
+    }, 1000);
+</script>

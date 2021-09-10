@@ -1,0 +1,117 @@
+﻿@page
+@model HRIS.WebUI.Pages.Setup.ProductVariationSetupModel
+@{
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Product Management</h5>
+                </div>
+                <div class="ibox-content">
+                    <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+                    <br /><br />
+                    <div class="table-responsive">
+
+                        <div id="producttypevariationContainer"></div>
+
+                        <div id="myModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Add Product Type Variation</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 ">
+                                                <form role="form">
+                                                    <div class="form-group">
+                                                        <label>Product Type Variation <span class="text-danger">*</span></label>
+                                                        @*<input placeholder="Enter your Product Variation Type" asp-for="Description" class="form-control">*@
+                                                        <input placeholder="Enter  Product Type Variation" onkeyup="EnableButton()" class="form-control" id="descriptionAdd">
+
+                                                    </div>
+
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-AddProductTypeVariation"><strong>Submit</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="Mod" class="modal fade" aria-hidden="true">
+
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Edit Product Type Variation</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+
+                                            <div class="col-sm-12 ">
+
+                                                <form role="form">
+                                                    <input type="hidden" id="productTypeVariationId" />
+                                                    <div class="form-group"><label>Product type variation <span class="text-danger">*</span></label> <input onkeyup="EnableButtonEdit()"  placeholder="Enter  Product Type Variation" class="form-control" id="description"></div>
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn_EditProductTypeVariation"><strong>Update</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.getElementById("btn-AddProductTypeVariation").disabled = true;
+        function EnableButton() {
+            var enable = true;
+            var nameValid = $('#descriptionAdd').val();
+            if (nameValid === "") {
+                enable = false;
+            }
+            if (enable) {
+                document.getElementById("btn-AddProductTypeVariation").disabled = false;
+            } else {
+                document.getElementById("btn-AddProductTypeVariation").disabled = true;
+            }
+        }
+        function EnableButtonEdit() {
+            var enable = true;
+            var nameValid = $('#description').val();
+            if (nameValid === "") {
+                enable = false;
+            }
+            if (enable) {
+                document.getElementById("btn_EditProductTypeVariation").disabled = false;
+            } else {
+                document.getElementById("btn_EditProductTypeVariation").disabled = true;
+            }
+        }
+    </script>
+    <script src="~/appscripts/productType.js" asp-append-version="true"></script>
+}

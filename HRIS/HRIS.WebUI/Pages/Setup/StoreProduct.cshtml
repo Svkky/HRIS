@@ -1,0 +1,112 @@
+﻿@page
+@model HRIS.WebUI.Pages.Setup.StoreProductModel
+@{
+}
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Store Product Setup</h5>
+                </div>
+
+                <partial name="InventoryFiles/_LoginLoader" />
+                <div id="ibox1">
+                    <div class="ibox-content">
+                        <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+                        <br /><br />
+
+                        <div id="StoreProductContainer"></div>
+                        <div id="myModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"> <h3 class="m-t-none m-b">Add Product</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 ">
+
+                                                <form role="form">
+
+                                                    <div class="form-group">
+                                                        <label>Category</label> <select asp-for="CategoryId" required asp-items="@(new SelectList(Model.Categories,"categoryId","description"))" class="chosen-select form-control">
+                                                            <option value="">--Select Category--</option>
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Sub-Category</label> <select asp-for="SubCategoryId" class="chosen-select form-control">
+                                                            <option value="">--Select Sub-Category--</option>
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Product Name</label>
+                                                        <input placeholder="Product Name" asp-for="ProductName" id="ProductName" required class="form-control">
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-AddStoreProduct"><strong>Submit</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="EditStoreProductModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"> <h3 class="m-t-none m-b">Edit Product</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 ">
+
+                                                <form role="form">
+                                                    <input type="hidden" id="StoreProductId" />
+                                                    <div class="form-group">
+                                                        <label>Category</label> <select asp-items="@(new SelectList(Model.Categories,"categoryId","description"))" id="editStoreProduct_CategoryId" class="chosen-select form-control">
+                                                            <option value="">--Select Category--</option>
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Sub-Category</label> <select asp-items="@(new SelectList(Model.SubCategories,"subCategoryId","subCategoryName"))" id="editStoreProduct_SubCategoryId" class="chosen-select form-control">
+                                                            <option value="">--Select Sub-Category--</option>
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Product Name</label>
+                                                        <input placeholder="Product Name" required id="editStoreProduct_ProductName" class="form-control">
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="btn-SubmitEditStoreProduct" type="submit"><strong>Update</strong></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+
+@section Scripts {
+    <script src="~/appscripts/StoreProduct.js" asp-append-version="true"></script>
+}

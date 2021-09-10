@@ -1,0 +1,217 @@
+﻿@page
+@model HRIS.WebUI.Pages.Setup.BranchModel
+@{
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Branch Setup</h5>
+                </div>
+                <div class="ibox-content">
+                    <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+                    <br /><br />
+                    <div class="table-responsive">
+
+                        <div id="branchContainer"></div>
+
+                        <div id="myModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Add Branch</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 ">
+                                                <form role="form">
+                                                    <div class="form-group">
+                                                        <label>Branch <span class="text-danger">*</span></label>
+                                                        <input placeholder="Enter Your Branch Name" onkeyup="EnableButton()" class="form-control" required id="branchNameAdd">
+                                                    </div>
+                                                </form>
+
+
+                                                <form role="form">
+                                                    <div class="form-group">
+                                                        <label> Phone Number<span class="text-danger">*</span></label>
+                                                        <input placeholder="Enter Branch Phone Number" onkeyup="EnableButton()" type="text" required asp-for="PhoneNumber" class="form-control" id="branchPhoneAdd">
+                                                        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                                                    </div>
+                                                </form>
+                                                <form role="form">
+                                                    <div class="form-group">
+                                                        <label>Address <span class="text-danger">*</span></label>
+                                                        <input placeholder="Enter Branch Address" onkeyup="EnableButton()" type="text" required class="form-control" id="branchlocationAdd">
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-Addbranch"><strong>Submit</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="Mod" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Edit branch Setup</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+
+                                            <div class="col-sm-12 ">
+                                                <form role="form">
+                                                    <input type="hidden" id="branchID" />
+                                                    <div class="form-group">
+                                                        <label>BranchName<span class="text-danger">*</span></label>
+                                                        <input placeholder="Enter Your Branch" onkeyup="EnableButtonEdit()" class="form-control" id="branchNameEdit">
+                                                    </div>
+
+                                                </form>
+
+                                                <form role="form">
+                                                    <input type="hidden" id="phoneNumber" />
+                                                    <div class="form-group">
+                                                        <label>Phone Number<span class="text-danger">*</span></label>
+                                                        <input placeholder="Enter Branch Phone Number" onkeyup="EnableButtonEdit()" class="form-control" type="tel" id="phoneNumberEdit">
+                                                    </div>
+
+                                                </form>
+                                                <form role="form">
+                                                    <input type="hidden" id="location" />
+                                                    <div class="form-group">
+                                                        <label>Address<span class="text-danger">*</span></label>
+                                                        <input placeholder="Enter Branch Address" onkeyup="EnableButtonEdit()" class="form-control" type="text" id="locationEdit">
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-Editbranch"><strong>Update</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div id="ModBranchAdmin" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <button class="btn btn-primary btn-sm" type="button" id="addBranchAdmin" data-toggle="modal" data-target="#AddBranchAdmin"><i class="fa fa-plus"></i>&nbsp;Add Branch Admin</button>
+
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Branch Admin</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+
+
+                                            <div class="table-responsive">
+                                                <div id="branchAdminContainer"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="AddBranchAdmin" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Add Branch Admin</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <form role="form">
+                                                <div class="form-group">
+                                                    <label>Customer</label>
+                                                    <select asp-for="UserID" asp-items="@(new SelectList(Model.UserList,"value","text"))" class="select2 form-control">
+                                                        <option value="">--Select User--</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Voucher</label>
+                                                    <select asp-for="BranchID" asp-items="@(new SelectList(Model.BranchList,"value","text"))" class="select2 form-control">
+                                                        <option value="">--Select Branch--</option>
+                                                    </select>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-AddAdminbranch"><strong>Add Branch Admin</strong></button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+@section Scripts {
+    <script>
+        function EnableButton() {
+            var enable = true;
+            var phoneValid = validatePhone($('#branchPhoneAdd').val())
+            if ($('#branchNameAdd').val() === "" || $('#branchlocationAdd').val() === "" || phoneValid == false) {
+                enable = false;
+            }
+            if (enable) {
+                document.getElementById("btn-Addbranch").disabled = false;
+            } else {
+                document.getElementById("btn-Addbranch").disabled = true;
+            }
+        }
+        function EnableButtonEdit() {
+            var enable = true;
+            var phoneValid = validatePhone($('#phoneNumberEdit').val())
+            if ($('#branchNameEdit').val() === "" || $('#locationEdit').val() === "" || phoneValid == false) {
+                enable = false;
+            }
+            if (enable) {
+                document.getElementById("btn-Editbranch").disabled = false;
+            } else {
+                document.getElementById("btn-Editbranch").disabled = true;
+            }
+        }
+    </script>
+    <script>
+        function validatePhone(txtPhone) {
+           
+            var filter = /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+            if (filter.test(txtPhone)) {
+               return true
+            }
+            else {
+                return false;
+            }
+        }
+        //function validateName(name) {
+        //    var filter = /^[a-zA-Z]+ [a-zA-Z]+$/;
+        //    if (filter.test(name)) {
+        //        return true;
+        //    }
+        //    else {
+        //        return false;
+        //    }
+        //}
+    </script>
+    <script src="~/appscripts/branch.js" asp-append-version="true"></script>
+}

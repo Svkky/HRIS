@@ -1,0 +1,104 @@
+﻿@page
+@model HRIS.WebUI.Pages.Administration.ManageUserPriviledgeModel
+@{
+    var userId = ViewData["userId"].ToString();
+    var roleId = ViewData["roleId"].ToString();
+}
+<input type="hidden" id="userId" value="@userId" />
+<input type="hidden" id="roleId" value="@roleId" />
+<div class="row">
+    <div class="text-right">
+        <a asp-page="/Administration/Users" class="btn btn-warning btn-sm text-right" type="button"><i class="fa fa-backward"></i>&nbsp; Go Back</a>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>User Role Pages</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+
+
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-striped table-bordered table-hover dataTables-rolePage" id="table_pages_by_roleId">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Menu Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_pages_by_roleId_body">
+                        @*<tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="checkbox" id="rowPagesCheckAll" />
+                                </td>
+                            </tr>*@
+                    </tbody>
+                </table>
+                <div class="text-center">
+
+
+                    <button class="btn  btn-primary m-t-n-xs" type="submit" id="btn-assignRowPages"><strong>Assign</strong></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>User Assigned Pages</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+
+
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-striped table-bordered table-hover dataTables-userPage" id="table_pages_by_userId">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Menu Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_pages_by_userId_body">
+                        @*<tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="checkbox" id="userPagesCheckAll" />
+                                </td>
+                            </tr>*@
+                    </tbody>
+                </table>
+                <div class="text-center">
+
+
+                    <button class="btn  btn-danger m-t-n-xs" type="submit" id="btn-removeAssignedPages"><strong>Remove Pages</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/appscripts/manageuser.js" asp-append-version="true"></script>
+}

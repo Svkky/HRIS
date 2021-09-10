@@ -1,0 +1,83 @@
+﻿@page
+@model HRIS.WebUI.Pages.Reports.SalesModel
+@{
+    var brnchId = HttpContextAccessor.HttpContext.Session.GetString("brnchId");
+
+}
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+
+                    @if (brnchId != null)
+                    {
+                        <div class="text-right">
+                            <a asp-page="/Reports/SalesStoreAdmin" class="btn btn-warning btn-sm text-right" type="button"><i class="fa fa-backward"></i>&nbsp; Go Back</a>
+                        </div>
+                    }
+
+                    <div class="form-group row">
+                        @*<label class="col-sm-1 control-label text-right">Filter :</label>*@
+
+                        @*<div class="col-sm-3">
+                <label>Products</label>
+                <select asp-for="ProductId" id="prodId" asp-items="@(new SelectList(Model.StoreProducts,"ProductName","ProductName"))" class="chosen-select form-control">
+                    <option value="" selected>All</option>
+
+                </select>
+            </div>*@
+                        <div class="col-sm-3">
+                            <label>Transaction Type</label>
+                            <select id="transactionType" class="chosen-select form-control">
+                                <option value="" selected>All</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Transfer">Transfer</option>
+                                <option value="POS">POS</option>
+
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <label>From<span class="text-danger">*</span></label>
+                            <input type="date" id="from" required class="form-control" placeholder="Start Date" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label>To<span class="text-danger">*</span></label>
+                            <input type="date" id="to" class="form-control" placeholder="End Date" />
+                        </div>
+
+                        <div class="col-sm-1">
+                            <label>Filter</label>
+                            <button class="btn btn-success" id="btn-FilterSales" type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <label>Reset</label>
+                            <button class="btn btn-warning" id="btn-ResetSales" type="button"><i class="fa fa-search"></i>&nbsp;Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <partial name="InventoryFiles/_LoginLoader" />
+                <div id="ibox1">
+                    <div class="ibox-content">
+
+
+                        <div id="salesReportContainer"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/appscripts/salesreport.js" asp-append-version="true"></script>
+}

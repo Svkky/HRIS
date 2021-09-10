@@ -1,0 +1,113 @@
+﻿@page
+@model HRIS.WebUI.Pages.Store.ExpenditureModel
+@{
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Branch Expenditures</h5>
+                </div>
+
+                <partial name="InventoryFiles/_LoginLoader" />
+                <div id="ibox1">
+                    <div class="ibox-content">
+                        <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+                        <br /><br />
+
+                        <div id="ExpenditureContainer"></div>
+                        <div id="myModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"> <h3 class="m-t-none m-b">Add Expenditures</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 ">
+
+                                                <form role="form">
+
+
+                                                    <div class="form-group">
+                                                        <label>Description <span class="text-danger">*</span></label>
+                                                        <input placeholder="Description" asp-for="Description" id="Description" required class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Amount(NGN) <span class="text-danger">*</span></label>
+                                                        <input placeholder="Amount" type="text" asp-for="Amount" id="Amount" required class="form-control money">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Date of Expenses  <span class="text-danger">*</span></label>
+                                                        <input placeholder="Date" type="date" asp-for="ExpenditureDate" id="ExpenditureDate" required class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Comment</label>
+                                                        <textarea placeholder="Other Comment" type="text" asp-for="Comment" id="Comment" class="form-control"></textarea>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-AddExpenditure"><strong>Submit</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*<div id="EditStoreProductModal" class="modal fade" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header"> <h3 class="m-t-none m-b">Edit Expen</h3></div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 ">
+
+                                                    <form role="form">
+                                                        <input type="hidden" id="StoreProductId" />
+                                                        <div class="form-group">
+                                                            <label>Category</label> <select asp-items="@(new SelectList(Model.Categories,"categoryId","description"))" id="editStoreProduct_CategoryId" class="select2_demo_1 form-control">
+                                                                <option value="">--Select Category--</option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Sub-Category</label> <select asp-items="@(new SelectList(Model.SubCategories,"subCategoryId","subCategoryName"))" id="editStoreProduct_SubCategoryId" class="select2_demo_1 form-control">
+                                                                <option value="">--Select Sub-Category--</option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Product Name</label>
+                                                            <input placeholder="product name" required id="editStoreProduct_ProductName" class="form-control">
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="btn-SubmitEditStoreProduct" type="submit"><strong>Update</strong></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+
+
+@section Scripts {
+    <script src="~/appscripts/expenditure.js" asp-append-version="true"></script>
+}

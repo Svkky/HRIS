@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using HRIS.WebUI.Extensions;
+@{
+    var jwtToken = HttpContextAccessor.HttpContext.Session.GetString("jwtToken");
+    var ApiBaseUrl = HttpContextAccessor.HttpContext.Session.GetString("BaseUrl");
+    var siteLocation = HttpContextAccessor.HttpContext.Session.GetString("siteLocation");
+    var branchId = HttpContextAccessor.HttpContext.Session.GetString("branchId");
+    var webUrl = HttpContextAccessor.HttpContext.Session.GetString("webUrl");
+    var branchIdCreate = HttpContextAccessor.HttpContext.Session.GetString("branchIdCreate");
+    var Role = HttpContextAccessor.HttpContext.Session.GetString("Role");
+    var billNumber = HttpContextAccessor.HttpContext.Session.GetString("billNumber");
+    var brnchId = HttpContextAccessor.HttpContext.Session.GetString("brnchId");
+
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewData["Title"] - Inventory Manager</title>
+
+    <partial name="InventoryFiles/_Styles" />
+</head>
+
+<body class="">
+    <input id="jwtToken" value="@jwtToken" type="hidden" />
+    <input id="ApiBaseUrl" value="@ApiBaseUrl" type="hidden" />
+    <input id="siteLocation" value="@siteLocation" type="hidden" />
+    <input id="branchId" value="@branchId" type="hidden" />
+    <input id="branchIdCreate" value="@branchIdCreate" type="hidden" />
+    <input id="webUrl" value="@webUrl" type="hidden" />
+    <input id="Role" value="@Role" type="hidden" />
+    <input id="billNumber" value="@billNumber" type="hidden" />
+    <input id="brnchId" value="@brnchId" type="hidden" />
+    <div id="wrapper">
+
+        <partial name="InventoryFiles/_SideLeftBar" />
+
+        @if (string.IsNullOrEmpty(ApiBaseUrl))
+        {
+            <script>
+                window.location.href = "http://localhost/HRIS.WebUI/Auth/Login";
+            </script>
+
+        }
+        <div id="page-wrapper" class="gray-bg">
+            <partial name="InventoryFiles/_FixedTopNavbar" />
+            <partial name="InventoryFiles/_TopNavigation" />
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+                @*<div class="middle-box text-center animated fadeInRightBig">
+
+                    </div>*@
+                @RenderBody()
+            </div>
+
+            <partial name="InventoryFiles/_Footer" />
+        </div>
+    </div>
+
+    <partial name="InventoryFiles/_Scripts" />
+    <script>
+        $('#actionLoader1').hide();
+        $('#actionLoader2').hide();
+         $('#ibox1').children('.modal fade').toggleClass('sk-loading');
+    </script>
+    @RenderSection("Scripts", required: false)
+
+
+</body>
+
+</html>

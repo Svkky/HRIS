@@ -1,0 +1,65 @@
+﻿@page
+@model HRIS.WebUI.Pages.Auth.confirm_emailModel
+@{
+    Layout = "_AccountLayout";
+    var badRequest = TempData["BadRequest"];
+}
+
+@if (badRequest != null)
+{
+    <div class="middle-box text-center loginscreen animated fadeInDown" style="background-image: url('/appimages/InventoryBg.jpg'); background-size: cover;">
+        <div id="ibox1">
+            <div class="ibox-content ">
+                <div>
+                    @*<img src="~/appimages/InventoryBg.jpg" style="width:200px; height:150px;" class="logo-name" />*@
+
+                </div>
+                <partial name="InventoryFiles/_LoginLoader" />
+                <h3>Welcome to Inventory Manager</h3>
+
+                <p class="text-danger"> We would not proceed with your request.</p>
+             
+                <p class="m-t"> <small>ICMA Professional Services&copy; 2021</small> </p>
+            </div>
+
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="middle-box text-center loginscreen animated fadeInDown" style="background-image: url('/appimages/InventoryBg.jpg'); background-size: cover;">
+        <div id="ibox1">
+            <div class="ibox-content ">
+                <div>
+                    @*<img src="~/appimages/InventoryBg.jpg" style="width:200px; height:150px;" class="logo-name" />*@
+
+                </div>
+                <partial name="InventoryFiles/_LoginLoader" />
+                <h3>Welcome to Inventory Manager</h3>
+
+                <p> Please add a password to your account.</p>
+                <form class="m-t" role="form" method="post" asp-page="/Auth/confirm-email" name="SubmitResetPassword">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="Password" class="form-control" placeholder="Password" type="password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="UserId" class="form-control">
+                        <input type="hidden" asp-for="Code" class="form-control">
+                    </div>
+                    <button type="submit" id="btnReset" class="btn btn-primary block full-width m-b">Add Password</button>
+
+
+
+                </form>
+                <p class="m-t"> <small>ICMA Professional Services&copy; 2021</small> </p>
+            </div>
+
+        </div>
+    </div>
+
+}

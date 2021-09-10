@@ -1,0 +1,95 @@
+﻿@page
+@model HRIS.WebUI.Pages.Setup.ProductAllocationModel
+@{
+}
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Product Allocation</h5>
+                </div>
+
+                <partial name="InventoryFiles/_LoginLoader" />
+                <div id="ibox1">
+                    <div class="ibox-content">
+                        <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;New Allocation</button>
+                        <br /><br />
+
+                        <div id="AllocationContainer"></div>
+
+                        <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-uppercase"><strong>Allocate New Product to Store Branch</strong></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        @*<div class="form-group row">
+                                            <label class="col-sm-2 control-label text-right">Product :</label>
+
+                                            
+                                        </div>*@
+                                        <div class="row ">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Product :</label>
+                                                @*<div class="col-sm-9">
+                                                    <div id="productIdDevExAllocate"></div>
+                                                </div>*@
+                                                <div class="col-sm-9">
+            <select asp-for="ProductId" asp-items="@(new SelectList(Model.Products,"StoreProductId","ProductName"))" class="chosen-select form-control">
+                <option value="">--Select Product--</option>
+
+            </select>
+        </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Available Qty :</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="number" id="qtyRemaining" class="form-control" readonly="readonly" placeholder="Available Quantity" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Allocation Qty :</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="number" asp-for="AllocationQuantity" class="form-control" placeholder="Enter Allocation Quantity" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Branch :</label>
+
+                                                <div class="col-sm-9">
+                                                    <select asp-for="BranchId" asp-items="@(new SelectList(Model.Branches,"branchID","branchName"))" class="chosen-select form-control">
+                                                        <option value="">--Select branch--</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="btn_AddProductAllocation" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+
+@section Scripts {
+    <script src="~/appscripts/productAllocation.js" asp-append-version="true"></script>
+}

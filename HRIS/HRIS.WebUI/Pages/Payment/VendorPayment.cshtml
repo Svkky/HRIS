@@ -1,0 +1,190 @@
+﻿@page
+@model HRIS.WebUI.Pages.Payment.VendorPaymentModel
+@{
+}
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="form-group row">
+                        @*<label class="col-sm-1 control-label text-right">Filter :</label>*@
+
+                        <div class="col-sm-3">
+                            <label>Supplier</label>
+                            <select asp-for="SupplierId" asp-items="@(new SelectList(Model.Suppliers,"SupplierId","Name"))" class="chosen-select form-control">
+                                <option value="">--Select Suppliers--</option>
+
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>From<span class="text-danger">*</span></label>
+                            <input type="date" id="from" required class="form-control" placeholder="Start Date" />
+                        </div>
+                        <div class="col-sm-3">
+                            <label>To<span class="text-danger">*</span></label>
+                            <input type="date" id="to" class="form-control" placeholder="End Date" />
+                        </div>
+
+                        <div class="col-sm-1">
+                            <label>Filter</label>
+                            <button class="btn btn-success" id="btn-Filter" type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <label>Reset</label>
+                            <button class="btn btn-warning" id="btn-Reset" type="button"><i class="fa fa-search"></i>&nbsp;Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <partial name="InventoryFiles/_LoginLoader" />
+                <div id="ibox1">
+                    <div class="ibox-content">
+                        <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+
+                        @*<div id="productIdDevExVendor"></div>*@
+                        <br /><br />
+
+                        <div id="VendorPaymentContainer"></div>
+                        <div id="myModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"> <h3 class="m-t-none m-b">Company Bill Entry</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row ">
+                                            @*<div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Product Name :</label>
+                                                <div class="col-sm-8">
+                                                    <div id="productIdDevExVendor"></div>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Company Name :</label>
+
+                                                <div class="col-sm-8">
+                                                    <select asp-for="VendorId" asp-items="@(new SelectList(Model.Suppliers,"SupplierId","Name"))" class="chosen-select form-control">
+                                                        <option value="">--Select Suppliers--</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                    <label class="col-sm-3 control-label text-right">Product Name :</label>
+
+                                                    <div class="col-sm-8">
+                                                        <select asp-for="ProductId" id="stProductId" asp-items="@(new SelectList(Model.StoreProductDTO,"StoreProductId","ProductName"))" class="chosen-select form-control">
+                                                            <option value="">--Select Product--</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Is in Pack/Carton?</label>
+
+                                                <div class="col-sm-8">
+                                                    <select class="chosen-select form-control" id="isPack">
+                                                        <option value="" selected>Please select</option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id="CartonDiv" style="display:none">
+
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 control-label text-right">Cartons/ Pack :</label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="number" asp-for="TotalCarton" required class="form-control" placeholder="Enter Cartons/ Quantity" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 control-label text-right">Items per Carton</label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="number" asp-for="TotalItemPerPack" class="form-control" placeholder="Enter Items Per Carton/ Pack" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" id="totalQty" style="display:none">
+                                                <label class="col-sm-3 control-label text-right">Total Quantity :</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="number" asp-for="TotalQuantity" class="form-control" placeholder="Enter Amount" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Total Amount :</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" asp-for="TotalAmount" class="form-control money" placeholder="Enter Amount" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Fully Paid? :</label>
+
+                                                <div class="col-sm-8">
+                                                    <select class="chosen-select form-control" id="fullyPaidDropDown">
+                                                        <option value="" selected>Please select</option>
+                                                        <option value="Yes">Yes</option>
+
+                                                        <option value="No">No</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" id="amountPaidDiv" style="display:none">
+                                                <label class="col-sm-3 control-label text-right">Amount Paid :</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" asp-for="AmountPaid" class="form-control money" placeholder="Enter Amount" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Delivery Date :</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="date" asp-for="DelieveryDate" class="form-control" placeholder="Delivery Date" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 control-label text-right">Attachment(s) :</label>
+
+                                                <div class="col-sm-8">
+                                                    <input id="File1" class="form-control" type="file" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="btn-Warehouse" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+
+
+@section Scripts {
+    <script src="~/appscripts/vendorpayment.js" asp-append-version="true"></script>
+}
+

@@ -1,0 +1,120 @@
+﻿@page
+@model HRIS.WebUI.Pages.Setup.VatModel
+@{
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Vat Management</h5>
+                </div>
+                <div class="ibox-content">
+                    <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#VatModal"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+                    <br /><br />
+                    <div class="table-responsive">
+
+                        <div id="VatContainer"></div>
+
+                        <div id="VatModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Add Vat</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 ">
+                                                <form role="form">
+                                                    <div class="form-group">
+                                                        <label>Vat Name</label>
+                                                        <input placeholder="Enter  Vat Name" onkeyup="EnableButton()" class="form-control" id="NameAdd" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Vat Percentage</label>
+                                                        <input placeholder="Enter your vat percentage" onkeyup="EnableButton()" type="number" class="form-control" id="percentAdd" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-AddVat"><strong>Submit</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="EditVatModal" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h3 class="m-t-none m-b">Edit Vat</h3></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+
+                                            <div class="col-sm-12 ">
+                                                <form role="form">
+                                                    <input type="hidden" id="VatId" />
+                                                    <div class="form-group">
+                                                        <label>Vat Name</label>
+                                                        <input placeholder="Enter  Vat Name" onkeyup="EnableButtonEdit()" class="form-control" id="NameEdit">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Vat Percentage</label>
+                                                        <input placeholder="Enter your vat percentage" onkeyup="EnableButtonEdit()" class="form-control" id="percentEdit">
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="btn-EditVat"><strong>Update</strong></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cover-spin"></div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("btn-AddVat").disabled = true;
+        function EnableButton() {
+            var enable = true;
+            var nameValid = $('#NameAdd').val();
+            var percentValid = $('#percentAdd').val();
+            if (nameValid === "" || percentValid === "") {
+                enable = false;
+            }
+            if (enable) {
+                document.getElementById("btn-AddVat").disabled = false;
+            } else {
+                document.getElementById("btn-AddVat").disabled = true;
+            }
+        }
+        function EnableButtonEdit() {
+            var enable = true;
+            var nameValid = $('#NameEdit').val();
+            var percentValid = $('#percentEdit').val();
+            if (nameValid === "" || percentValid === "") {
+                enable = false;
+            }
+            if (enable) {
+                document.getElementById("btn-EditVat").disabled = false;
+            } else {
+                document.getElementById("btn-EditVat").disabled = true;
+            }
+        }
+        
+    </script>
+    <script src="~/appscripts/vat.js" asp-append-version="true"></script>
+}
